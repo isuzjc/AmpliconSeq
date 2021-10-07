@@ -19,7 +19,7 @@ def run(protocol: protocol_api.ProtocolContext):
 	# define labware and locations
 	tips4 = protocol.load_labware('opentrons_96_filtertiprack_20ul', '4') # 20ul filter tips on deck position 1
 	tips7 = protocol.load_labware('opentrons_96_filtertiprack_20ul', '7') # 20ul filter tips on deck position 4
-	if loadmastermix: reservoir = protocol.load_labware('usascientific_12_reservoir_22ml', '5') # reservoir with pcr mastermix (3.8mL) in A1 (First column)
+	if loadmastermix: reservoir = protocol.load_labware('nest_12_reservoir_15ml', '5') # reservoir with pcr mastermix (3.8mL) in A1 (First column)
 	primarypcr = protocol.load_labware('biorad384pcrplate_384_wellplate_40ul', '2') # skirted 384 well plate of amplicons
 	gDNA = protocol.load_labware('biorad_96_wellplate_200ul_pcr', '1') # skirted 96 well plate containing extracted DNA
 

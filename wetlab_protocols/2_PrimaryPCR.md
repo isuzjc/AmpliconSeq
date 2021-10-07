@@ -11,7 +11,7 @@ Another advantage of this amplification strategy is that you can mix and match 1
 
 ## Materials
 - [ ] Opentrons OT-2 with 20ul multichannel.
-- [ ] 1 x USA Scientific 12 Well Reservoir 22 mL (USA Scientific 1061-8150) 
+- [ ] 1 x Nest 12 well reservoir (Opentrons 360112) 
 - [ ] 2 x Opentrons filter 20ul tips (https://shop.opentrons.com/collections/opentrons-tips/products/opentrons-20ul-filter-tips)
 - [ ] 384 Plates for qPCR (Biorad #HSP3865)
 - [ ] [gDNA from Protocol 1](https://github.com/jbisanz/AmpliconSeq/blob/master/wetlab_protocols/1_DNAExtraction.md) in a 96 well plate (Biorad hsp9601)
