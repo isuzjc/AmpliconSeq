@@ -18,7 +18,7 @@ The most important output is the WellsForIndexing.csv file which needs to be cop
 - [ ] 96 Well Plates (USA Sci #1402-9200)
 - [ ] DMSO for PCR (Sigma D8418-50mL)
 - [ ] KAPA HiFi PCR kit (KAPA KK2502) - **order your own**
-- [ ] Indexing Primer plate (Pick 1 of 6 for each plate to be sequenced without overlapping).
+- [ ] Indexing Primer plate (5µM, Pick 1 of 6 for each plate to be sequenced without overlapping).
 - [ ] Nuclease-free H2O (Life Tech 0977-023)
 - [ ] Opentrons OT-2 with gen2 20ul multichannel and 20ul single channel.
 - [ ] 1 x USA Scientific 12 Well Reservoir 22 mL (USA Scientific 1061-8150) 
