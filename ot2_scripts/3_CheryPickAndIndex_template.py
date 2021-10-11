@@ -78,7 +78,7 @@ def run(protocol: protocol_api.ProtocolContext):
 	indexplate = protocol.load_labware('biorad_96_wellplate_200ul_pcr', '3') # skirted 96 well plate containing arrayed indexes
 	primarypcr = protocol.load_labware('biorad384pcrplate_384_wellplate_40ul', '6') # skirted 384 well plate of amplicons
 	dilutionplate = protocol.load_labware('biorad_96_wellplate_200ul_pcr', '5') # a plate to carryout 100x dilutions.
-	if loadwater or loadmastermix: reservoir = protocol.load_labware('usascientific_12_reservoir_22ml', '8') # reservoir with indexing mastermix (660ul) in A1 (First column) and Water (10 mL)
+	if loadwater or loadmastermix: reservoir = protocol.load_labware('nest_12_reservoir_15ml', '8') # reservoir with indexing mastermix (660ul) in A1 (First column) and Water (10 mL)
 
 	# define pipettes
 	left_pipette = protocol.load_instrument('p20_single_gen2', 'left', tip_racks=[tips1, tips4, tips7, tips10, tips11])
@@ -91,7 +91,7 @@ def run(protocol: protocol_api.ProtocolContext):
 			for p in range(1, 6): # do 5 times for 100ul total
 				right_pipette.aspirate(20, reservoir['A2'])
 				right_pipette.dispense(20, dilutionplate['A'+str(i)])
-		right_pipette.drop_tip() 
+		right_pipette.return_tip() 
 	
 	# transfer 1µL from the cherry picked wells defined in loadings to the corresponding point on the dilution plate
 	if cherrypick:
@@ -100,7 +100,7 @@ def run(protocol: protocol_api.ProtocolContext):
 			left_pipette.pick_up_tip()
 			left_pipette.aspirate(1, primarypcr[load['PrimaryPCR_Well']])
 			left_pipette.dispense(1, dilutionplate[load['gDNA_Well']])
-			left_pipette.drop_tip()	 
+			left_pipette.return_tip()	 
 	
 	# load the master mix into the indexing plate.
 	if loadmastermix:
@@ -108,7 +108,7 @@ def run(protocol: protocol_api.ProtocolContext):
 		for i in cols_to_mix: 
 			right_pipette.aspirate(6, reservoir['A1'])
 			right_pipette.dispense(6, indexpcr['A'+str(i)])
-		right_pipette.drop_tip() 
+		right_pipette.return_tip() 
 	
 	# load the indexes
 	if loadindex:
@@ -116,7 +116,7 @@ def run(protocol: protocol_api.ProtocolContext):
 			right_pipette.pick_up_tip()
 			right_pipette.aspirate(4, indexplate['A'+str(i)])
 			right_pipette.dispense(4, indexpcr['A'+str(i)])
-			right_pipette.drop_tip() 
+			right_pipette.return_tip() 
 	
 	# add the templates
 	if loadtemplate:
@@ -125,4 +125,4 @@ def run(protocol: protocol_api.ProtocolContext):
 			right_pipette.mix(3, 20, dilutionplate['A'+str(i)]) # mix 5x by pipetting up and down 20ul
 			right_pipette.aspirate(10, dilutionplate['A'+str(i)])
 			right_pipette.dispense(10, indexpcr['A'+str(i)])
-			right_pipette.drop_tip() 
+			right_pipette.return_tip() 

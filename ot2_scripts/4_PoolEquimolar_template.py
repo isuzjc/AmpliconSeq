@@ -151,12 +151,7 @@ def run(protocol: protocol_api.ProtocolContext):
         if ChangeTip and check == 0 and i != 0:
             left_pipette.drop_tip()
             left_pipette.pick_up_tip()
-        if transfer['plate'] == 'Plate1': left_pipette.aspirate(float(transfer['volume']), Plate1[transfer['well']])
-        if transfer['plate'] == 'Plate2': left_pipette.aspirate(float(transfer['volume']), Plate2[transfer['well']])
-        if transfer['plate'] == 'Plate3': left_pipette.aspirate(float(transfer['volume']), Plate3[transfer['well']])
-        if transfer['plate'] == 'Plate4': left_pipette.aspirate(float(transfer['volume']), Plate4[transfer['well']])
-        if transfer['plate'] == 'Plate5': left_pipette.aspirate(float(transfer['volume']), Plate5[transfer['well']])
-        if transfer['plate'] == 'Plate6': left_pipette.aspirate(float(transfer['volume']), Plate6[transfer['well']])
+        left_pipette.aspirate(float(transfer['volume']), eval(transfer['plate'])[transfer['well']])
         left_pipette.dispense(float(transfer['volume']), epitube['A1'])
         i=i+1
         total_volume = total_volume + float(transfer['volume'])

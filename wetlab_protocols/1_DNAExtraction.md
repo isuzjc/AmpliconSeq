@@ -45,7 +45,7 @@ Ideally we want a high-throughput extraction method that is scalable and would a
 - [ ] Air Dry 30 minutes (or 10 minutes on 55˚C heating element)
 - [ ] Add 50 µL DNase/RNase Free Water
 - [ ] Capture beads on magnetic stand
-- [ ] Transfer supernatant containing DNA to a new full skirted 96 well plate.
+- [ ] Transfer 30 µL supernatant containing DNA to a new full skirted 96 well plate.
 - [ ] Store plate at <= -20˚C or proceed to 1˚ amplification.
 
 ## QC
