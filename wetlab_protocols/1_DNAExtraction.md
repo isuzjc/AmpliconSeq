@@ -24,7 +24,7 @@ Ideally we want a high-throughput extraction method that is scalable and would a
 - [ ] Transfer ~50 mg feces, or ~half mouse fecal pellet, or 200µL liquid sample into lysing tube.
 - [ ] Record weight of tube in Tracking_Sheet.xlsx
 - [ ] Add 750 µL ZymoBIOMICS lysis solution to lysing tube (650 µL if using lysing rack).
-- [ ] Disrupt for 1 minutes in FastPrep 96
+- [ ] Disrupt for 1 minute in FastPrep 96
 - [ ] Wait 5 minutes
 - [ ] repeat previous 2 steps for a total of 5 minutes bead beating.
 - [ ] Centrifuge 5 minutes at ~10,000 x g
@@ -45,7 +45,7 @@ Ideally we want a high-throughput extraction method that is scalable and would a
 - [ ] Air Dry 30 minutes (or 10 minutes on 55˚C heating element)
 - [ ] Add 50 µL DNase/RNase Free Water
 - [ ] Capture beads on magnetic stand
-- [ ] Transfer supernatant containing DNA to a new full skirted 96 well plate.
+- [ ] Transfer 35 µL supernatant containing DNA to a new full skirted 96 well plate.
 - [ ] Store plate at <= -20˚C or proceed to 1˚ amplification.
 
 ## QC
