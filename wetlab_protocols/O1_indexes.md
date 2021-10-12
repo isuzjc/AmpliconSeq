@@ -93,5 +93,5 @@ F|F6|F14|F22|R6|R14|R22|-|-|-|-|-|-
 G|F7|F15|F23|R7|R15|R23|-|-|-|-|-|-
 H|F8|F16|F24|R8|R16|R24|-|-|-|-|-|-
 
-![fig1](https://github.com/jbisanz/AmpliconSeq/blob/master/images/makeindexlayout.png)
+![fig1](https://github.com/bisanzlab/AmpliconSeq/blob/master/images/makeindexlayout.png)
 **Figure 1. OT2 set up for picking and indexing.** **Positions 1-6:** 96 well plates (label Indexing plate 1-6 respectively). **Position 7:** 2mL plate with 1mL of each index. **Position 8:** 200 µL filter tips. **Position 9:** 1000 µL filter tips. **Pipettes:** left mount 1000ul single channel, right mount 200ul multichannel.
