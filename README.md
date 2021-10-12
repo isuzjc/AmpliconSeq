@@ -17,7 +17,8 @@ Protocol 1: [DNA Extraction](https://github.com/bisanzlab/AmpliconSeq/blob/maste
 <br>Protocol 8: [QIIME2 Pipeline (2020.11)](https://github.com/bisanzlab/AmpliconSeq/blob/master/analysis_scripts/AmpliconSeq_q2-2020.11.Rmd)
 
 ## Optional Protocols
-Protocol O2: [Primary PCR and Indexing for Low Biomass Samples](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O2_lowbiomass.md)
+Protocol O1: [Preparing Indexing Plates](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O1_indexes.md)
+<br>Protocol O2: [Primary PCR and Indexing for Low Biomass Samples](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O2_lowbiomass.md)
 <br>Protocol O4: [Ampure XP Cleanup](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O4_Ampure.md)
 
 ## Other
