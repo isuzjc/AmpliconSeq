@@ -1,33 +1,43 @@
 ##########################
 message("#################################################################################################################")
-message("#DilutionPickR  v0.1")
-message("#J Bisanz 1 Dec 2020")
+message("#DilutionPickR  v0.11")
+message("#J Bisanz 18 Oct 2021")
 message("#Picks appropriate dilution from primary PCR for AmpliconSeq Protocol")
 message("#################################################################################################################")
 message(" ")
+
+theme_plt<-function () {
+  theme_classic(base_size = 8, base_family = "Helvetica") + 
+    theme(panel.border = element_rect(color = "black", size = 1, 
+                                      fill = NA)) + theme(axis.line = element_blank(), 
+                                                          strip.background = element_blank())
+}
 
 ##########################
 #Get arguments
 suppressMessages(library(optparse))
 option_list = list(
-  make_option(c("-c", "--csv"), type="character", help="Quantification Amplification Results_SYBR.csv exported from BioRad CFX384", metavar="character"),
+  make_option(c("-f", "--folder"), type="character", help="A folder of csvs exported from CFX opus  containing ...Quantification Amplification Results_SYBR.csv", metavar="character"),
   make_option(c("-t", "--tracking"), type="character", help="The 16S tracking sheet (an excel file downloaded from AmpliconSeq).", metavar="character"),
   make_option(c("-i", "--plateid"), type="numeric", default="1", help="Which plate are we looking at (to pull sample names)?", metavar="character"),
   make_option(c("-o", "--output"), type="character", default="WellsForIndexing.csv", help="A csv file which will contain the appropriate wells to pick", metavar="character"),
   make_option(c("-p", "--pdf"), type="character", default="PrimaryCurves.pdf", help="A set of ", metavar="character"),
   make_option(c("-r", "--rfu"), type="numeric", help="The max RFU used for picking (default=detected from samples using 3rd quartile)", metavar="numeric"),
-  make_option(c("-f", "--fraction"), type="numeric", default="0.8", help="Pick the dilution closest to fraction x  RFU", metavar="numeric")
+  make_option(c("-f", "--fraction"), type="numeric", default="0.8", help="Pick the dilution closest to fraction x  RFU", metavar="numeric"),
+  make_option(c("-l", "--libpath"), type="character", default="/data/shared_resources/Rlibs_4.1.0", help="Location", metavar="numeric")
 )
-
 
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
 
-#opt$csv="/turnbaughlab/projects/Caloric Restriction/16S/primarypcr/CALORICRESTRICT-admin_2020-11-30 19-05-20_CT018087 -  Quantification Amplification Results_SYBR.csv"
-#opt$tracking="/turnbaughlab/projects/Caloric Restriction/16S/16S_TrackingSheet.xlsx"
-#opt$plateid="1"
+.libPaths(opt$libpath)
 
-if (is.null(opt$csv) | is.null(opt$tracking) | is.null(opt$plateid)){
+
+opt$folder="LSD_Plate1"
+opt$tracking="LSD2_TrackingSheet.xlsx"
+opt$plateid="1"
+
+if (is.null(opt$folder) | is.null(opt$tracking) | is.null(opt$plateid)){
   print_help(opt_parser)
   stop("Specify the ampification results (--csv), tracking sheet (--tracking), and plate ID (--plateid)", call.=FALSE)
 }
@@ -36,12 +46,16 @@ message(date(), "---> Loading tidyverse and readxl")
 suppressMessages(library(tidyverse))
 suppressMessages(library(readxl))
 
-suppressMessages(suppressWarnings(amps<-read_csv(opt$csv)))
+files<-list.files(opt$folder, pattern="Quantification Amplification Results_SYBR\\.csv", full.names = TRUE)
+if(length(files)!="1"){stop("Error: too many amplification results found, please make sure only 1 run per folder!")}
+
+message(date(), paste("---> Reading ", files))
+suppressMessages(suppressWarnings(amps<-read_csv(files)))
 suppressMessages(suppressWarnings(tracking<-read_excel(opt$tracking, col_names = FALSE)))
 
 amps<-
   amps %>%
-  select(-X1) %>%
+  select(-1) %>%
   gather(-Cycle, key="Well", value="RFU")
 
 line<-grep(paste0("Extraction and Indexing Plate ", opt$plateid, " of 6"), tracking[,1]$...1)
@@ -73,10 +87,12 @@ tracking<-tracking %>%
   mutate(Well_96=paste0(Row_96well, Column_96well), Well_384=paste0(Row_384well, Column_384well)) %>%
   dplyr::select(SampleID, dilution, Well_96, Well_384)
 
+suppressMessages(
 amps<-
 amps %>% dplyr::rename(Well_384=Well) %>% left_join(tracking) %>%
   filter(!grepl("^Empty", SampleID)) %>%
   dplyr::select(SampleID, dilution, Well_96, Well_384, Cycle, RFU)
+)
 
 if(is.null(opt$rfu)){opt$rfu<-amps %>% filter(dilution==1 & Cycle==max(amps$Cycle)) %>% pull(RFU) %>% median()}
 
@@ -94,41 +110,20 @@ amps %>%
   mutate(Status=if_else(is.na(Status), "Discard","Index"))
 
 
-pdf(gsub("\\.pdf",paste0("_Plate",opt$plateid,".pdf"), opt$pdf), height=8, width=10.5)
-print(
-  amps %>%
-    filter(Status=="Index") %>%
-    ggplot(aes(x=Cycle, y=RFU, group=SampleID)) +
-    theme_bw() +
-    geom_line() +
-    ggtitle(paste0("Samples for Indexing: Plate ", opt$plateid))
-)
 
-print(
-  amps %>% 
-  select(Well_384, Status) %>% 
-  mutate(row=gsub("[A-Z]", "", Well_384) %>% as.numeric()) %>%
-  mutate(column=gsub("[0-9]", "", Well_384) %>% factor(., levels=rev(LETTERS[1:16]))) %>%
-  ggplot(aes(x=row, y=column, fill=Status)) +
-  geom_tile() +
-  ggtitle(paste0("Wells to pick: Plate ", opt$plateid)) +
-  theme_bw() +
-  scale_x_continuous(breaks=1:24) +
-  scale_fill_manual(values=c("grey50","indianred"))
-)
-
-for(samp in unique(amps$SampleID)){
-    print(
-    amps %>%
-    filter(SampleID==samp) %>%
-    ggplot(aes(x=Cycle, y=RFU, color=Status, group=dilution)) + 
-    geom_line() +
-    geom_hline(yintercept = opt$rfu, linetype="dashed", color="red") +
-    theme_bw() +
-    ggtitle(paste0("Plate:", opt$plateid," Well:", (amps %>% filter(SampleID==samp) %>% pull(Well_96) %>% .[1])," Sample:", samp))
-    )
-}
-dev.off()
+amps %>%
+  mutate(Column=gsub("[A-Z]","", Well_96) %>% as.numeric()) %>%
+  mutate(Row=gsub("[0-9]","", Well_96)) %>%
+  ggplot(aes(x=Cycle, y=RFU, color=Status, group=Well_384)) +
+  geom_hline(yintercept = opt$rfu, linetype="dashed", color="grey80") +
+  geom_line() +
+  ggtitle(paste0("Samples for Indexing: Plate ", opt$plateid)) +
+  facet_grid(Row~Column) +
+  scale_x_continuous(breaks=seq(1,25,5)) +
+  scale_color_manual(values=c("grey80","indianred")) +
+  theme_plt() +
+  theme(legend.position="bottom")
+ggsave(paste0("PrimaryCurves_Plate",opt$plateid,".pdf"), height=8.5, width=11, useDingbats=F)
 
 amps %>%
   filter(Cycle==max(amps$Cycle) & Status=="Index") %>%
