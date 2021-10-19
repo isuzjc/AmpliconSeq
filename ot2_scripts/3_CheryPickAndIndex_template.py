@@ -91,7 +91,7 @@ def run(protocol: protocol_api.ProtocolContext):
 			for p in range(1, 6): # do 5 times for 100ul total
 				right_pipette.aspirate(20, reservoir['A2'])
 				right_pipette.dispense(20, dilutionplate['A'+str(i)])
-		right_pipette.return_tip() 
+		right_pipette.drop_tip() 
 	
 	# transfer 1µL from the cherry picked wells defined in loadings to the corresponding point on the dilution plate
 	if cherrypick:
@@ -100,7 +100,7 @@ def run(protocol: protocol_api.ProtocolContext):
 			left_pipette.pick_up_tip()
 			left_pipette.aspirate(1, primarypcr[load['PrimaryPCR_Well']])
 			left_pipette.dispense(1, dilutionplate[load['gDNA_Well']])
-			left_pipette.return_tip()	 
+			left_pipette.drop_tip()	 
 	
 	# load the master mix into the indexing plate.
 	if loadmastermix:
@@ -108,7 +108,7 @@ def run(protocol: protocol_api.ProtocolContext):
 		for i in cols_to_mix: 
 			right_pipette.aspirate(6, reservoir['A1'])
 			right_pipette.dispense(6, indexpcr['A'+str(i)])
-		right_pipette.return_tip() 
+		right_pipette.drop_tip() 
 	
 	# load the indexes
 	if loadindex:
@@ -116,7 +116,7 @@ def run(protocol: protocol_api.ProtocolContext):
 			right_pipette.pick_up_tip()
 			right_pipette.aspirate(4, indexplate['A'+str(i)])
 			right_pipette.dispense(4, indexpcr['A'+str(i)])
-			right_pipette.return_tip() 
+			right_pipette.drop_tip() 
 	
 	# add the templates
 	if loadtemplate:
@@ -125,4 +125,4 @@ def run(protocol: protocol_api.ProtocolContext):
 			right_pipette.mix(3, 20, dilutionplate['A'+str(i)]) # mix 5x by pipetting up and down 20ul
 			right_pipette.aspirate(10, dilutionplate['A'+str(i)])
 			right_pipette.dispense(10, indexpcr['A'+str(i)])
-			right_pipette.return_tip() 
+			right_pipette.drop_tip() 
