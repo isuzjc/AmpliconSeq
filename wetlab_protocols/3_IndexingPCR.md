@@ -7,7 +7,7 @@ While the primary PCR has created the amplicons for sequencing, there is no iden
 The first step of this protocol is to pick the appropriate dilution from the primary PCR. If using low biomass samples, this step should be skipped as dilutions were not performed. This can be performed automatically using a script included in resources called DilutionPick.R. It can be run as below to generate a table of the wells to be picked. Note to run you will require an installation of R and the packages: tidyverse, readxl, and optparse.
 
 ```
-Rscript ~/GitHub/AmpliconSeq/resources/DilutionPick.R --csv "primarypcr/CALORICRESTRICT-admin_2020-11-30 19-05-20_CT018087 -  Quantification Amplification Results_SYBR.csv" --tracking 16S_TrackingSheet.xlsx --plateid 4
+Rscript DilutionPick.R --folder Plate1_Results --tracking 16S_TrackingSheet.xlsx --plateid 1
 ```
 
 The resulting outputs include WellsForIndexing_PlateX.csv and PrimaryCurves_PlateX.pdf. The amplification curves show which dilution was selected for indexing based on trying to be closest to 0.7x the maximum (i.e. plateaued) signal as seen in Figure 1. The goal is to prevent over amplification. Note also from these plots what has happened with your negative controls, for example as seen in Figure 2.
