@@ -13,11 +13,13 @@ theme_plt<-function () {
                                                           strip.background = element_blank())
 }
 
+#.libPaths("/data/shared_resources/Rlibs_4.1.0")
+
 ##########################
 #Get arguments
 suppressMessages(library(optparse))
 option_list = list(
-  make_option(c("-f", "--folder"), type="character", help="A folder of csvs exported from CFX opus  containing ...Quantification Amplification Results_SYBR.csv", metavar="character"),
+  make_option(c("-d", "--folder"), type="character", help="A folder of csvs exported from CFX opus  containing ...Quantification Amplification Results_SYBR.csv", metavar="character"),
   make_option(c("-t", "--tracking"), type="character", help="The 16S tracking sheet (an excel file downloaded from AmpliconSeq).", metavar="character"),
   make_option(c("-i", "--plateid"), type="numeric", default="1", help="Which plate are we looking at (to pull sample names)?", metavar="character"),
   make_option(c("-o", "--output"), type="character", default="WellsForIndexing.csv", help="A csv file which will contain the appropriate wells to pick", metavar="character"),
@@ -33,9 +35,9 @@ opt = parse_args(opt_parser)
 .libPaths(opt$libpath)
 
 
-opt$folder="LSD_Plate1"
-opt$tracking="LSD2_TrackingSheet.xlsx"
-opt$plateid="1"
+#opt$folder="Plate3/"
+#opt$tracking="LSDTrackingSheet_20Oct2021.xlsx"
+#opt$plateid="3"
 
 if (is.null(opt$folder) | is.null(opt$tracking) | is.null(opt$plateid)){
   print_help(opt_parser)
@@ -47,11 +49,16 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(readxl))
 
 files<-list.files(opt$folder, pattern="Quantification Amplification Results_SYBR\\.csv", full.names = TRUE)
-if(length(files)!="1"){stop("Error: too many amplification results found, please make sure only 1 run per folder!")}
+if(length(files)!="1"){
+  message(opt$folder)
+  stop("Error: too many (or no) amplification results found, please make sure only 1 run per folder!")
+  }
 
 message(date(), paste("---> Reading ", files))
 suppressMessages(suppressWarnings(amps<-read_csv(files)))
 suppressMessages(suppressWarnings(tracking<-read_excel(opt$tracking, col_names = FALSE)))
+
+if(length(tracking$SampleID)!=length(unique(tracking$SampleID))){stop("There are duplicated sample names, please make sure every sample has a unique name!")}
 
 amps<-
   amps %>%
@@ -104,6 +111,8 @@ amps %>%
   select(SampleID, dilution, Well_96) %>%
   mutate(Status="Index")
 
+if(nrow(picks)!=nrow(subset(amps, dilution==1 & Cycle==1))){stop("Error: For some reason not all samples have a dilution picked, manually inspect!")}
+
 amps<-
 amps %>%
   left_join(picks) %>%
@@ -111,10 +120,12 @@ amps %>%
 
 
 
+pdat<-
 amps %>%
   mutate(Column=gsub("[A-Z]","", Well_96) %>% as.numeric()) %>%
-  mutate(Row=gsub("[0-9]","", Well_96)) %>%
-  ggplot(aes(x=Cycle, y=RFU, color=Status, group=Well_384)) +
+  mutate(Row=gsub("[0-9]","", Well_96))
+
+  ggplot(pdat, aes(x=Cycle, y=RFU, color=Status, group=Well_384)) +
   geom_hline(yintercept = opt$rfu, linetype="dashed", color="grey80") +
   geom_line() +
   ggtitle(paste0("Samples for Indexing: Plate ", opt$plateid)) +
@@ -122,7 +133,8 @@ amps %>%
   scale_x_continuous(breaks=seq(1,25,5)) +
   scale_color_manual(values=c("grey80","indianred")) +
   theme_plt() +
-  theme(legend.position="bottom")
+  theme(legend.position="bottom") +
+  geom_text(data=subset(pdat, Cycle==1 & dilution==1), aes(label=SampleID, x=2, y=0.2*opt$rfu), size=2, hjust=0, vjust=1, color="black")
 ggsave(paste0("PrimaryCurves_Plate",opt$plateid,".pdf"), height=8.5, width=11, useDingbats=F)
 
 amps %>%
