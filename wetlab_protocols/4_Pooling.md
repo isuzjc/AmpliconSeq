@@ -11,22 +11,24 @@ Any given sequencing run produces a set number of reads: for example ~15 million
 - [ ] 10 ul multichannel pipette
 - [ ] 1x 200ul filter tips (USA scientific 120-8710)
 - [ ] 1x 10ul filter tips (USA scientific 1121-2710)
-- [ ] Fluorescent plate reader
+- [ ] Fluorescent plate reader (There is a Magellan that we can use in the Perdew lab)
 - [ ] Nuclease free 1.5 mL microcentrifuge tube (eppendorf or alternative)
 - [ ] Opentrons OT2
 - [ ] Opentrons Gen2 20ul single channel
 - [ ] 1 box 20ul opentrons filter tips
 
 ## Protocol
-- [ ] For 96 well plate, prepare 110 reactions (11mL dsDNA HS buffer, 55µL dsDNA HS reagent dye) in a reagent reservoir.
+- [ ] For each 96 well plate, prepare 110 reactions (11mL dsDNA HS buffer, 55µL dsDNA HS reagent dye, scale appropriately) in a reagent reservoir.
 - [ ] Fill each well of 96 well plate with 100 µL reaction mix (samples plate)
-- [ ] Fill 1st column of second plate with 90 µL reaction mix (standards plate)
+- [ ] Using an empty lane of a partial plate, or new plate if necessary, add 1 column with 100 µL each well for the standard curve.
 - [ ] To full 96 well black plate (sample plate), transfer 1 µL of eached indexed PCR product and mix by pipetting
-- [ ] to standards plate, transfer 10 µL of the kit's dsDNA HS standards (0, 0.5, 1, 2, 4, 6, 8, 10 ng/ul)
+- [ ] Prepare a 2-fold dilution series using the 100 ng/µL lambda DNA standard provided with the quantit kit. Your standard curve should be 100, 50, 25, 12.5, 6.25, 3.125, 1.56 and 0 ng/µL.
+- [ ] Transfer 1 µL of each standard to its designated column.
 - [ ] Start by measuring flourescence on standard plate by setting the gain to automatic (Ex=480nm, Em=530nm).
-- [ ] Copy the gain setting and flourescence values to the Picogreen tab of TrackingSheet.xlsx
+- [ ] Copy the gain setting and flourescence values to the Picogreen tab of TrackingSheet.xlsx. **Note: You may consider just using 80 for the gain setting on the Perdew lab magellan**.
 - [ ] Repeat measurement on full sample plate being sure to set gain to match the standard plate.
 - [ ] Copy and paste results into Picogreen template as per **Figure 1**.
+- [ ] Review the loading volumes and manually adjust volumes >20µL to be either 20µL or the average loading volume.
 - [ ] Move to Loading.csv tab, and click File > Save As > File Format: CSV UTF-8
 - [ ] Remove lines which do not have a loading volume from the resulting csv file
 - [ ] Download a copy of ot2_scripts/4_PoolEquimolar_template.py and copy and paste the pooling volumes from the CSV file into the python (.py) script.
