@@ -11,7 +11,7 @@ Because we are using an illumina-compatible barcoding strategy, it is  unnecessa
 - [ ] Incorperation buffer (Included with MiSeq Kit)
 - [ ] Phix174 Illumina Spike in Control (FC-110-3001)
 - [ ] 1N NaOH (Fisher SS277)
-- [ ] Dilution Buffer (10 mM Tris-HCl pH 8, 0.1% Tween, note can be prepared from Qiagen EB + Tween)
+- [ ] Dilution Buffer (10 mM Tris-HCl pH 8, 0.1% Tween 20, note can be prepared from Qiagen EB + Tween)
 
 ## Protocol
 - [ ] Thaw MiSeq reagent kit overnight in fridge (or in room temp water bath)
