@@ -1,9 +1,6 @@
 # AmpliconSeq
  A set of protocols and pipelines for construction and analysis of 16S rRNA amplicon libraries. 
 
-
-**!!!Currently Under Construction!!!**
-
 ## Wet Lab Protocols
 Protocol 1: [DNA Extraction](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/1_DNAExtraction.md)
 <br>Protocol 2: [Primary PCR](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/2_PrimaryPCR.md)
@@ -18,10 +15,4 @@ Protocol 1: [DNA Extraction](https://github.com/bisanzlab/AmpliconSeq/blob/maste
 
 ## Optional Protocols
 Protocol O1: [Preparing Indexing Plates](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O1_indexes.md)
-<br>Protocol O2: [Primary PCR and Indexing for Low Biomass Samples](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O2_lowbiomass.md)
 <br>Protocol O4: [Ampure XP Cleanup](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O4_Ampure.md)
-
-## Other
-Design of primers and index here: .
-
-## Helpful Resources
