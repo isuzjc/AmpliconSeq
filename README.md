@@ -11,7 +11,7 @@ Protocol 1: [DNA Extraction](https://github.com/bisanzlab/AmpliconSeq/blob/maste
 <br>Protocol 7: [Loading MiSeq](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/7_LoadingMiSeq.md)
 
 ## Computational Workflow
-<br>Protocol 8: [QIIME2 Pipeline (2020.11)](https://github.com/bisanzlab/AmpliconSeq/blob/master/analysis_scripts/AmpliconSeq_q2-2020.11.Rmd)
+<br>Protocol 8: [QIIME2 Pipeline](https://github.com/bisanzlab/AmpliconSeq/blob/master/analysis_scripts/AmpliconSeq_q2.Rmd)
 
 ## Optional Protocols
 Protocol O1: [Preparing Indexing Plates](https://github.com/bisanzlab/AmpliconSeq/blob/master/wetlab_protocols/O1_indexes.md)
