@@ -156,6 +156,7 @@ def run(protocol: protocol_api.ProtocolContext):
         i=i+1
         total_volume = total_volume + float(transfer['volume'])
         if total_volume > newtube_volume:
+            protocol.home()	
             protocol.pause("Please insert new 1.5mL eppendorf tube")
             total_volume = 0
     protocol.comment("Total volume in tube is " + str(total_volume) + " ul")
