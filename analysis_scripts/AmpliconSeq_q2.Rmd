@@ -19,7 +19,7 @@ Modify the user parameters below. If this is your first time using any lab conda
 After adjusting the settings, run from the command line by invoking the following commands:
 
 ```
-conda activate qiime2-2021.8
+conda activate qiime2-2021.11
 nohup Rscript -e "rmarkdown::render('AmpliconSeq_q2.Rmd')" > run.log &
 ```
 
