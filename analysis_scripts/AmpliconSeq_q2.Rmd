@@ -1,5 +1,5 @@
 ---
-title: "Bisanz Lab QIIME2 Pipeline v0.1: qiime2-2021.8"
+title: "Bisanz Lab QIIME2 Pipeline v1.0: qiime2-2021.11"
 date: 'Run at `r format(Sys.time(), "%Y-%m-%d %H:%M")`'
 output: 
   html_document:
