@@ -30,10 +30,11 @@ The most important output is the WellsForIndexing.csv file which needs to be cop
 # Protocol
 - [ ] Obtain a plate of indexes from the freezer and thaw on ice. **Breifly centrifuge before opening!!!!!**
 - [ ] Download a copy of 3_CheryPickAndIndex.py and copy and paste your loadings from the WellsForIndexing.csv file into it.
-- [ ] Set up the OT2 as in Figure 1. *Note: you can manually load the indexing mastermix and water to the dilution plate if a reservoir is not available. Adjust loadwater = False and loadmastermix = False in the python script*
+- [ ] Manually load 100µL water to the dilution plate *Note: you can also manually load the indexing mastermix to the dilution plate if a reservoir is not available. Adjust loadmastermix = False in the python script*
+- [ ] Set up the OT2 as in Figure 1.
 - [ ] Load python script on OT2
 - [ ] Calibrate all deck positions
-- [ ] Run script (Estimated run time = ~45 minutes).
+- [ ] Run script (Estimated run time = ~48 minutes).
 - [ ] After completion, freeze plates until quantification and pooling.
 
 ## Table 1. Indexing PCR Master Mix (3.3x)
