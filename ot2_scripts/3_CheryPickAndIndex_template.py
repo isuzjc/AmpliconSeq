@@ -58,7 +58,7 @@ DNA_Standard,1,H5,O5
 '''
 
 # Use the lines below to bypass steps (False to bypass)
-loadwater = True
+loadwater = False
 cherrypick = True
 loadmastermix = True
 loadindex = True
